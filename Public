@@ -1,0 +1,806 @@
+:root {
+  --bg: #f7f9ff;
+  --bg-alt: #edf1fc;
+  --surface: #ffffff;
+  --text: #0f1b3d;
+  --muted: #52607f;
+  --line: #dbe2f4;
+  --accent: #2457ff;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6ecff;
+  --yellow: #ffd23f;
+  --good: #0f8a4f;
+  --good-bg: #e6f6ee;
+  --bad: #b3361f;
+  --bad-bg: #fdebe7;
+  --shadow: 0 10px 30px rgba(20, 40, 110, .08);
+  --radius: 16px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a1020;
+  --bg-alt: #0e1630;
+  --surface: #131c38;
+  --text: #eef2ff;
+  --muted: #a3b0d4;
+  --line: #243256;
+  --accent: #5b82ff;
+  --accent-ink: #ffffff;
+  --accent-soft: #1b2850;
+  --good: #4ad08a;
+  --good-bg: #0f2a22;
+  --bad: #ff8f78;
+  --bad-bg: #2d1713;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a1020;
+    --bg-alt: #0e1630;
+    --surface: #131c38;
+    --text: #eef2ff;
+    --muted: #a3b0d4;
+    --line: #243256;
+    --accent: #5b82ff;
+    --accent-soft: #1b2850;
+    --good: #4ad08a;
+    --good-bg: #0f2a22;
+    --bad: #ff8f78;
+    --bad-bg: #2d1713;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: var(--accent); }
+
+.wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
+.narrow { width: min(780px, 100% - 40px); margin-inline: auto; }
+
+/* nav */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-in { display: flex; align-items: center; gap: 24px; height: 64px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: -.01em; }
+.logo-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: #fff; font-weight: 800; }
+.nav-links { display: flex; gap: 22px; margin-left: auto; }
+.nav-links a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.icon-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; display: grid; place-items: center; }
+.icon-btn:hover { border-color: var(--accent); }
+
+/* buttons */
+.btn {
+  display: inline-block; text-align: center; text-decoration: none; cursor: pointer;
+  background: var(--accent); color: var(--accent-ink);
+  font-weight: 800; border-radius: 12px; padding: 12px 20px; border: 0;
+  box-shadow: 0 6px 18px rgba(36, 87, 255, .28);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(36, 87, 255, .34); }
+.btn:focus-visible, .icon-btn:focus-visible, summary:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.btn-sm { padding: 9px 14px; font-size: .92rem; }
+.btn-lg { padding: 16px 28px; font-size: 1.08rem; }
+.btn-light { background: #fff; color: #1637b8; box-shadow: none; }
+
+/* hero */
+.hero { padding: 64px 0 40px; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+.eyebrow { margin: 0 0 10px; font-size: .8rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0 0 18px; font-size: clamp(2.1rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -.025em; }
+h2 { margin: 0 0 12px; font-size: clamp(1.7rem, 3.4vw, 2.4rem); line-height: 1.15; letter-spacing: -.02em; }
+h3 { margin: 0 0 8px; font-size: 1.1rem; }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 56ch; }
+.sub { color: var(--muted); max-width: 62ch; font-size: 1.05rem; }
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin: 26px 0 20px; }
+.price-note { color: var(--muted); font-size: .95rem; }
+.price-note strong { color: var(--text); }
+.ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.ticks li { position: relative; padding-left: 28px; }
+.ticks li::before { content: ""; position: absolute; left: 0; top: .35em; width: 17px; height: 17px; border-radius: 50%; background: var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%232457ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; }
+.ticks.center { display: inline-grid; text-align: left; margin: 14px 0 24px; }
+
+.hero-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px 18px 16px; box-shadow: var(--shadow); }
+.card-label { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.hero-card svg { width: 100%; height: auto; }
+.hero-card .grid path { stroke: var(--line); stroke-width: 1; fill: none; }
+.hero-card .axis { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.hero-card .curve { stroke: #d6453a; stroke-width: 3; fill: none; }
+.hero-card .dot { fill: var(--text); }
+.hero-card .dot.vertex { fill: var(--accent); }
+.hero-card .tag rect { fill: var(--surface); stroke: var(--line); }
+.hero-card .tag text { fill: var(--text); font: 600 12px ui-monospace, Menlo, Consolas, monospace; }
+.card-cap { margin: 8px 2px 0; color: var(--muted); font-size: .9rem; }
+
+.steps3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.steps3 > div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.steps3 b { color: var(--accent); font-size: 1.3rem; }
+.steps3 h3 { display: inline; margin-left: 8px; }
+.steps3 p { margin: 6px 0 0; color: var(--muted); font-size: .96rem; }
+
+/* sections */
+.section { padding: 72px 0; }
+.section.alt { background: var(--bg-alt); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 28px; }
+.four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
+.card.sm { padding: 20px; box-shadow: none; }
+.card.sm p { margin: 0; color: var(--muted); font-size: .96rem; }
+.card ul { padding-left: 20px; margin: 14px 0 0; display: grid; gap: 8px; }
+.card > p { color: var(--muted); margin: 0; }
+.pill { display: inline-block; margin-bottom: 12px; padding: 4px 12px; border-radius: 99px; background: var(--yellow); color: #1c2340; font-size: .78rem; font-weight: 800; }
+.trick { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 12px; padding: 16px 18px; }
+.trick h3 { font-size: 1rem; }
+.trick p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+.box { border-radius: var(--radius); padding: 22px; border: 1px solid var(--line); }
+.box.bad { background: var(--bad-bg); }
+.box.good { background: var(--good-bg); }
+.box.bad h3 { color: var(--bad); }
+.box.good h3 { color: var(--good); }
+.box pre { margin: 8px 0 10px; font: 700 1.05rem ui-monospace, Menlo, Consolas, monospace; white-space: pre-wrap; }
+.box p { margin: 0 0 8px; }
+.box .check { color: var(--muted); font-size: .93rem; }
+.box ul { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+.center-note { text-align: center; color: var(--muted); margin-top: 22px; }
+
+.route { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 10px; }
+.route li { display: grid; grid-template-columns: 82px 1fr; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.route span { font-weight: 800; color: var(--accent); }
+
+.price-card { text-align: center; background: var(--surface); border: 2px solid var(--accent); border-radius: 24px; padding: 40px 26px; box-shadow: var(--shadow); }
+.price { font-size: 4.2rem; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.price span { font-size: 1.6rem; color: var(--muted); }
+.price-sub { color: var(--muted); margin: 6px 0 0; }
+.fine { color: var(--muted); font-size: .85rem; margin: 14px 0 0; }
+
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-top: 10px; }
+summary { cursor: pointer; padding: 16px 18px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; line-height: 1; }
+details[open] summary::after { content: "\2212"; }
+details p { margin: 0; padding: 0 18px 16px; color: var(--muted); }
+
+.final { background: var(--accent); color: #fff; text-align: center; padding: 64px 0; }
+.final h2 { max-width: 20ch; margin-inline: auto; margin-bottom: 22px; }
+
+.footer { padding: 28px 0; border-top: 1px solid var(--line); }
+.foot-in { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: space-between; }
+.foot-in p { margin: 0; color: var(--muted); font-size: .85rem; max-width: 70ch; }
+
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 30px); opacity: 0; pointer-events: none; background: var(--text); color: var(--bg); padding: 12px 18px; border-radius: 10px; font-weight: 600; transition: .25s; max-width: calc(100% - 32px); z-index: 50; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* success page */
+.center-page { min-height: 100vh; display: grid; place-items: center; padding: 32px 16px; }
+.dl-card { width: min(640px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 36px 28px; box-shadow: var(--shadow); text-align: center; }
+.dl-card .check-badge { width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 50%; background: var(--good-bg); color: var(--good); display: grid; place-items: center; font-size: 1.8rem; font-weight: 800; }
+.dl-list { display: grid; gap: 12px; margin: 24px 0 8px; text-align: left; }
+.dl-item { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); }
+.dl-item h3 { margin: 0 0 2px; font-size: 1rem; }
+.dl-item p { margin: 0; color: var(--muted); font-size: .88rem; }
+.dl-msg { display: none; padding: 14px 16px; border-radius: 12px; background: var(--bad-bg); color: var(--bad); margin-top: 18px; text-align: left; }
+
+@media (max-width: 900px) {
+  .hero-grid, .two, .compare { grid-template-columns: 1fr; }
+  .four, .grid3, .steps3 { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .nav-right { margin-left: auto; }
+}
+@media (max-width: 560px) {
+  .four, .grid3, .steps3 { grid-template-columns: 1fr; }
+  .section { padding: 52px 0; }
+  .hero { padding-top: 40px; }
+  .dl-item { flex-direction: column; align-items: stretch; text-align: left; }
+  .route li { grid-template-columns: 1fr; gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .toast { transition: none; }
+}
+
+/* pack chapters */
+.chap { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; font-size: .93rem; color: var(--muted); }
+.chap b { color: var(--accent); font-variant-numeric: tabular-nums; margin-right: 4px; }
+.card.sm h3 { margin-bottom: 4px; }
+
+/* pay section */
+.pay-title { margin: 30px 0 14px; font-size: 1.5rem; }
+.pay-grid { display: grid; grid-template-columns: 280px 1fr; gap: 28px; align-items: center; text-align: left; margin-top: 8px; }
+.qr-box { text-align: center; }
+.qr-box img { width: 240px; height: 240px; margin: 0 auto 10px; border-radius: 14px; border: 1px solid var(--line); background: #fff; }
+.qr-box p { margin: 0 0 12px; color: var(--muted); font-size: .92rem; }
+.pay-steps { margin: 0; padding-left: 22px; display: grid; gap: 14px; }
+.pay-steps li::marker { color: var(--accent); font-weight: 800; }
+.contact-set { font-weight: 700; color: var(--text); }
+.contact-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+.contact-row[hidden], .contact-row > [hidden] { display: none; }
+.btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; }
+.btn-outline:hover { box-shadow: none; background: var(--accent-soft); }
+
+/* download page additions */
+.dl-card.wide { width: min(780px, 100%); text-align: left; }
+.dl-card.wide > h1, .dl-card.wide > .eyebrow, .dl-card.wide > .sub, .dl-card.wide > .check-badge, .dl-card.wide > .fine { text-align: center; }
+.dl-h { font-size: 1.15rem; margin: 26px 0 8px; }
+.dl-list.inner { margin: 0; padding: 0 14px 14px; }
+#groups details { margin-top: 10px; }
+@media (max-width: 700px) {
+  .pay-grid { grid-template-columns: 1fr; }
+}
+
+/success
+  X-Robots-Tag: noindex, nofollow
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GumSat Digital SAT Math &amp; Desmos Master Pack | $6</title>
+  <meta name="description" content="23 visual PDF guides for the digital SAT: a study order, a step-by-step Desmos walkthrough and 21 topic chapters covering every SAT Math area. $6, one time.">
+  <meta name="theme-color" content="#2457ff">
+  <meta property="og:title" content="GumSat Digital SAT Math &amp; Desmos Master Pack">
+  <meta property="og:description" content="23 visual PDFs: study order, Desmos guide and 21 SAT Math chapters. $6, one time.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    // Apply saved theme before paint to avoid a flash.
+    try {
+      var t = localStorage.getItem("gumsat-theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" aria-label="GumSat home"><span class="logo-mark">G</span>GumSat</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#inside">What's inside</a>
+      <a href="#sample">Free sample</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch between light and dark mode">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a href="#buy" class="btn btn-sm">Buy for $6</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Digital SAT Math, made visual</p>
+        <h1>Stop guessing on SAT Math. Learn the method, then let Desmos check it.</h1>
+        <p class="lead">23 PDF guides in one pack: a study order that tells you what to learn first, a step-by-step Desmos walkthrough built on real calculator screenshots, and 21 short chapters covering every SAT Math area.</p>
+        <div class="cta-row">
+          <a href="#buy" class="btn btn-lg">Get the Pack for $6</a>
+          <span class="price-note"><strong>$6.00</strong> one-time payment. No subscription.</span>
+        </div>
+        <ul class="ticks">
+          <li>23 PDFs, about 200 slides, every step shown on screen</li>
+          <li>Works on phone, tablet and laptop</li>
+          <li>Pay with Whish, then get your private download link</li>
+        </ul>
+      </div>
+
+      <figure class="hero-card" aria-label="Example of reading a Desmos graph">
+        <figcaption class="card-label">Look at the right point</figcaption>
+        <svg viewBox="0 0 300 290" role="img" aria-label="Parabola with roots at x equals 1 and x equals 5 and a vertex at 3, negative 4">
+          <g class="grid">
+            <path d="M50 10V280M90 10V280M130 10V280M170 10V280M210 10V280M250 10V280M290 10V280"/>
+            <path d="M40 30H290M40 70H290M40 150H290M40 190H290M40 230H290M40 270H290"/>
+          </g>
+          <path class="axis" d="M40 110H290M50 10V280"/>
+          <path class="curve" d="M70 20Q170 520 270 20"/>
+          <circle class="dot" cx="90" cy="110" r="5"/>
+          <circle class="dot" cx="250" cy="110" r="5"/>
+          <circle class="dot vertex" cx="170" cy="270" r="5"/>
+          <g class="tag"><rect x="62" y="124" width="56" height="22" rx="5"/><text x="90" y="139" text-anchor="middle">(1, 0)</text></g>
+          <g class="tag"><rect x="222" y="124" width="56" height="22" rx="5"/><text x="250" y="139" text-anchor="middle">(5, 0)</text></g>
+          <g class="tag"><rect x="142" y="240" width="56" height="22" rx="5"/><text x="170" y="255" text-anchor="middle">(3, -4)</text></g>
+        </svg>
+        <p class="card-cap">Roots, minimum, vertex. Same graph, three different questions.</p>
+      </figure>
+    </div>
+
+    <div class="wrap steps3">
+      <div><b>01</b><h3>Enter</h3><p>Build the expression carefully. Parentheses and angle mode matter.</p></div>
+      <div><b>02</b><h3>Read</h3><p>Find the right point. Separate an x-value from a y-value.</p></div>
+      <div><b>03</b><h3>Check</h3><p>Go back to the question. Confirm what it asks for before you answer.</p></div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="section" id="inside">
+    <div class="wrap">
+      <p class="eyebrow">What you get</p>
+      <h2>23 PDFs. One clear way to study.</h2>
+      <p class="sub">Short, visual and meant to be worked through with a pen and the calculator open. Start with the first two, then pick the chapters you need.</p>
+
+      <div class="two">
+        <article class="card">
+          <span class="pill">00 &middot; Start Here &middot; 16 slides</span>
+          <h3>Study Order &amp; Strategy Guide</h3>
+          <p>Tells you where to start, how to study and how to stop repeating the same mistakes.</p>
+          <ul>
+            <li>A four-question diagnostic with answers that point you to a chapter</li>
+            <li>A 2-hour review plan and a 4-hour plan with time blocks</li>
+            <li>A four-question solving routine: find the target, list what you know, pick a method, check the answer</li>
+            <li>A method chooser: when to use algebra, Desmos or plain reasoning</li>
+            <li>An error log system and exam-day habits</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="pill">01 &middot; Desmos &middot; 20 slides</span>
+          <h3>Desmos Essentials</h3>
+          <p>Every slide shows the real Desmos screen with the exact spot to look at.</p>
+          <ul>
+            <li>Screen layout, typing rules and how to avoid input mistakes</li>
+            <li>Solving equations and systems by graphing</li>
+            <li>Roots, vertex and minimum value, and which coordinate each one needs</li>
+            <li>Regression, lists, degrees vs radians, inequalities, radical equations</li>
+            <li>A troubleshooting checklist and four practice questions with worked answers</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER MAP -->
+  <section class="section alt">
+    <div class="wrap">
+      <p class="eyebrow">21 topic chapters</p>
+      <h2>All four SAT Math areas, in a sensible order.</h2>
+      <p class="sub">Each chapter is 6 to 10 slides: the method, a worked example, the usual mistake and practice. Study them in the order the Start Here guide suggests.</p>
+
+      <div class="four">
+        <div class="card sm">
+          <h3>Algebra</h3>
+          <ul class="chap">
+            <li><b>02</b> Linear Equations in One Variable</li>
+            <li><b>03</b> Lines and Two-Variable Equations</li>
+            <li><b>04</b> Linear Functions</li>
+            <li><b>05</b> Systems of Linear Equations</li>
+            <li><b>06</b> Linear Inequalities</li>
+          </ul>
+        </div>
+        <div class="card sm">
+          <h3>Advanced Math</h3>
+          <ul class="chap">
+            <li><b>07</b> Exponents and Radicals</li>
+            <li><b>08</b> Polynomials and Equivalent Expressions</li>
+            <li><b>09</b> Quadratic Equations and Parabolas</li>
+            <li><b>10</b> Other Nonlinear Equations and Systems</li>
+            <li><b>11</b> Exponential and Other Nonlinear Functions</li>
+          </ul>
+        </div>
+        <div class="card sm">
+          <h3>Problem-solving and data</h3>
+          <ul class="chap">
+            <li><b>12</b> Ratios, Rates, Proportions and Units</li>
+            <li><b>13</b> Percentages</li>
+            <li><b>14</b> One-Variable Data and Statistics</li>
+            <li><b>15</b> Scatterplots, Models and Regression</li>
+            <li><b>16</b> Probability and Conditional Probability</li>
+            <li><b>17</b> Inference and Margin of Error</li>
+            <li><b>18</b> Study Design and Statistical Claims</li>
+          </ul>
+        </div>
+        <div class="card sm">
+          <h3>Geometry and trigonometry</h3>
+          <ul class="chap">
+            <li><b>19</b> Area, Surface Area and Volume</li>
+            <li><b>20</b> Lines, Angles and Similar Triangles</li>
+            <li><b>21</b> Right Triangles and Trigonometry</li>
+            <li><b>22</b> Circles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESMOS TRICKS -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Desmos tricks inside</p>
+      <h2>The calculator moves that save real time.</h2>
+      <div class="grid3">
+        <div class="trick"><h3>Solve by two graphs</h3><p>Turn each side of an equation into its own graph. Read x where they cross.</p></div>
+        <div class="trick"><h3>Read the right coordinate</h3><p>The point (2, 7) holds two answers. Learn which one the question wants.</p></div>
+        <div class="trick"><h3>Roots vs minimum</h3><p>Roots come from x-axis crossings. A minimum value is a y-value. Different questions, different points.</p></div>
+        <div class="trick"><h3>Systems in one view</h3><p>Enter both equations as they are and read the shared point. No rearranging.</p></div>
+        <div class="trick"><h3>Regression from lists</h3><p>Type two lists, use the tilde, read the coefficients. Lines and parabolas.</p></div>
+        <div class="trick"><h3>Statistics with lists</h3><p>Mean, median, total and spread in seconds. Population vs sample explained.</p></div>
+        <div class="trick"><h3>Degrees or radians</h3><p>One wrong setting ruins a trig answer. Check it before you calculate.</p></div>
+        <div class="trick"><h3>Inequality overlap</h3><p>Pick a point from the region where both shaded areas meet.</p></div>
+        <div class="trick"><h3>Catch fake solutions</h3><p>Squaring a radical equation can create an answer that fails. Test it in the original.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLE -->
+  <section class="section alt" id="sample">
+    <div class="wrap narrow">
+      <p class="eyebrow">Free sample from the Start Here guide</p>
+      <h2>Why subtracting 20% gives the wrong answer.</h2>
+      <p class="sub">A price rises by 20% and becomes $96. What was the price before the increase?</p>
+
+      <div class="compare">
+        <div class="box bad">
+          <h3>The wrong base</h3>
+          <pre>96 &times; 0.80 = 76.80</pre>
+          <p>This removes 20% of the <em>new</em> price. The increase was 20% of the <em>original</em>.</p>
+          <p class="check">Check: 76.80 &times; 1.20 = 92.16. That is not 96.</p>
+        </div>
+        <div class="box good">
+          <h3>The correct base</h3>
+          <pre>1.20p = 96
+p = 96 &divide; 1.20 = 80</pre>
+          <p>Final = original &times; multiplier. To get the original back, divide by the multiplier.</p>
+          <p class="check">Check: 80 + 20% of 80 = 80 + 16 = 96.</p>
+        </div>
+      </div>
+      <p class="center-note">Every chapter is taught this way: the mistake, the fix and a check you can do yourself.</p>
+    </div>
+  </section>
+
+  <!-- ROUTES -->
+  <section class="section">
+    <div class="wrap narrow">
+      <p class="eyebrow">A plan you can start tonight</p>
+      <h2>The 2-hour review route</h2>
+      <ol class="route">
+        <li><span>20 min</span>Desmos basics: solve an equation, read an intersection and a vertex.</li>
+        <li><span>25 min</span>Algebra: one equation and one system, done from memory.</li>
+        <li><span>30 min</span>Quadratics: roots, minimum value and number of solutions.</li>
+        <li><span>20 min</span>Ratios and percentages: a unit conversion and a reverse percentage.</li>
+        <li><span>15 min</span>Geometry: triangle ratios, radius, arcs and circle equations.</li>
+        <li><span>10 min</span>Your error list: redo missed questions without looking at the solutions.</li>
+      </ol>
+      <p class="center-note">Have more time? The Start Here guide also includes a 4-hour route.</p>
+    </div>
+  </section>
+
+  <!-- FIT -->
+  <section class="section alt">
+    <div class="wrap narrow">
+      <h2>Is this right for you?</h2>
+      <div class="compare">
+        <div class="box good">
+          <h3>A good fit if you</h3>
+          <ul>
+            <li>are taking the digital SAT and want a clear starting point</li>
+            <li>understand things better with pictures and screenshots</li>
+            <li>lose points to careless slips or to reading the wrong value</li>
+            <li>want to use the built-in Desmos calculator properly</li>
+          </ul>
+        </div>
+        <div class="box bad">
+          <h3>Not what you need if you</h3>
+          <ul>
+            <li>want video lessons or a live tutor</li>
+            <li>need a large bank of full practice tests</li>
+            <li>expect a guaranteed score. No guide can promise that.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUY -->
+  <section class="section" id="buy">
+    <div class="wrap narrow">
+      <div class="price-card">
+        <p class="eyebrow">GumSat Digital SAT Math &amp; Desmos Master Pack</p>
+        <div class="price">$6<span>.00</span></div>
+        <p class="price-sub">One-time payment. Yours to keep.</p>
+        <ul class="ticks center">
+          <li>Start Here study guide and Desmos Essentials</li>
+          <li>21 topic chapters across all four SAT Math areas</li>
+          <li>23 PDFs, downloadable on any device</li>
+        </ul>
+
+        <h2 class="pay-title">How to get it</h2>
+        <div class="pay-grid">
+          <div class="qr-box">
+            <img src="/whish-qr.png" width="240" height="240" alt="Whish payment QR code for GumSat" loading="lazy">
+            <p>Scan with the Whish app</p>
+            <a href="#" class="btn btn-sm js-whish" target="_blank" rel="noopener">Or pay with Whish on this phone</a>
+          </div>
+          <ol class="pay-steps">
+            <li><b>Pay $6.00.</b> Scan the QR code or tap the button, and pay exactly $6.00.</li>
+            <li><b>Send your receipt.</b> Send a screenshot of the Whish confirmation to <span class="js-contact">(add your contact in config.js)</span>.</li>
+            <li><b>Get your link.</b> We check the payment and send you a private page with all 23 PDFs.</li>
+          </ol>
+        </div>
+
+        <div class="contact-row">
+          <a href="#" class="btn btn-sm js-wa" target="_blank" rel="noopener" hidden>Message us on WhatsApp</a>
+          <a href="#" class="btn btn-sm btn-outline js-email" hidden>Email your receipt</a>
+        </div>
+        <p class="fine">Payment happens inside Whish. GumSat never sees your card or bank details.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section alt" id="faq">
+    <div class="wrap narrow">
+      <p class="eyebrow">Questions</p>
+      <h2>Frequently asked questions</h2>
+
+      <details>
+        <summary>What exactly do I receive?</summary>
+        <p>23 PDF files: the Start Here study guide (16 slides), Desmos Essentials (20 slides) and 21 topic chapters of 6 to 10 slides each. Together that is about 200 slides.</p>
+      </details>
+      <details>
+        <summary>How do I get the files after paying?</summary>
+        <p>Pay $6.00 through Whish, then send us a screenshot of the confirmation. Once we have checked the payment, we send you a private download page. You can download each PDF on its own, or grab two bundles that hold all 23 files.</p>
+      </details>
+      <details>
+        <summary>How long does delivery take?</summary>
+        <p>The link is sent by hand after we verify your payment, so it is not instant. Include your screenshot in the first message and it will go faster.</p>
+      </details>
+      <details>
+        <summary>Do I need to read all 23 PDFs?</summary>
+        <p>No. Start with the Start Here guide and Desmos Essentials, take the diagnostic, then work through the chapters it points you to.</p>
+      </details>
+      <details>
+        <summary>Is this a video course?</summary>
+        <p>No. It is a set of short visual PDFs. Each slide shows one step with a screenshot or diagram, so you can work at your own pace.</p>
+      </details>
+      <details>
+        <summary>Do I already need to know Desmos?</summary>
+        <p>No. The Desmos guide starts with the screen layout and typing rules and builds up from there.</p>
+      </details>
+      <details>
+        <summary>Will this raise my score?</summary>
+        <p>We can't promise a number, and anyone who does is guessing. What the pack does is show you the methods and the usual mistakes. How much you gain depends on how much you practise.</p>
+      </details>
+      <details>
+        <summary>Is GumSat connected to the College Board?</summary>
+        <p>No. GumSat is an independent study resource. SAT is a registered trademark of the College Board, which does not endorse this product.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="wrap">
+      <h2>Six dollars. 23 guides. A study plan for tonight.</h2>
+      <a href="#buy" class="btn btn-lg btn-light">Get the Pack for $6</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap foot-in">
+    <span class="logo"><span class="logo-mark">G</span>GumSat</span>
+    <p>&copy; <span id="year">2026</span> GumSat. SAT is a registered trademark of the College Board, which is not affiliated with GumSat. Desmos is a trademark of its respective owner.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/config.js"></script>
+<script src="/script.js"></script>
+</body>
+</html>
+
+(function () {
+  var cfg = window.GUMSAT_CONFIG || {};
+
+  function show(el) { el.hidden = false; }
+
+  // Whish pay buttons
+  document.querySelectorAll(".js-whish").forEach(function (el) {
+    if (cfg.whishUrl) el.setAttribute("href", cfg.whishUrl);
+    else el.hidden = true;
+  });
+
+  // Contact buttons and the inline contact line
+  var email = (cfg.supportEmail || "").trim();
+  var wa = (cfg.whatsappNumber || "").replace(/\D/g, "");
+
+  document.querySelectorAll(".js-email").forEach(function (el) {
+    if (email) {
+      el.setAttribute("href", "mailto:" + email + "?subject=" + encodeURIComponent("GumSat payment receipt"));
+      show(el);
+    }
+  });
+  document.querySelectorAll(".js-wa").forEach(function (el) {
+    if (wa) {
+      el.setAttribute("href", "https://wa.me/" + wa + "?text=" + encodeURIComponent("Hi, I paid $6 for the GumSat pack. Here is my receipt."));
+      show(el);
+    }
+  });
+
+  var line = [];
+  if (wa) line.push("WhatsApp +" + wa);
+  if (email) line.push(email);
+  if (line.length) {
+    document.querySelectorAll(".js-contact").forEach(function (el) {
+      el.textContent = line.join(" or ");
+      el.classList.add("contact-set");
+    });
+  }
+
+  // Theme toggle
+  var toggle = document.getElementById("themeToggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      var root = document.documentElement;
+      var current = root.getAttribute("data-theme");
+      if (!current) {
+        current = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("gumsat-theme", next); } catch (e) {}
+    });
+  }
+
+  var year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+})();
+
+User-agent: *
+Disallow: /success
+Disallow: /api/
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Your GumSat downloads</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    try {
+      var t = localStorage.getItem("gumsat-theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <main class="center-page">
+    <div class="dl-card wide">
+      <div class="check-badge" aria-hidden="true">&#10003;</div>
+      <p class="eyebrow">Payment confirmed</p>
+      <h1 style="font-size:2rem">Thanks. Your GumSat pack is ready.</h1>
+      <p class="sub" style="margin-inline:auto">Save everything to your device now. Open <b>00 Start Here</b> first, take the diagnostic, then use the chapters it points you to.</p>
+
+      <div class="dl-msg" id="dlMsg">
+        This page needs the access code that came with your link. Open the exact link we sent you. If it still doesn't work, message us and we will resend it.
+      </div>
+
+      <h2 class="dl-h">Download everything</h2>
+      <div class="dl-list" id="bundles"></div>
+
+      <h2 class="dl-h">Or pick individual PDFs</h2>
+      <div id="groups"></div>
+
+      <p class="fine">Keep a copy of every file. Please don't share this page. If the link stops working, message us and we will resend it.</p>
+      <p style="margin-top:18px"><a href="/">Back to GumSat</a></p>
+    </div>
+  </main>
+
+  <noscript><p style="text-align:center">Please enable JavaScript to use the download buttons.</p></noscript>
+  <script>
+    (function () {
+      var BUNDLES = [
+        { file: "GumSat_Part1_Start-Desmos-Algebra-AdvancedMath.zip", title: "Part 1 (ZIP, 12 PDFs)", note: "Start Here, Desmos Essentials, Algebra and Advanced Math" },
+        { file: "GumSat_Part2_ProblemSolving-Data-Geometry.zip", title: "Part 2 (ZIP, 11 PDFs)", note: "Problem-solving and data, Geometry and trigonometry" }
+      ];
+      var GROUPS = [
+        { title: "Start here", files: [
+          ["00_Start_Here_and_Study_Order.pdf", "00 Start Here and Study Order", "16 slides"],
+          ["01_Desmos_Essentials.pdf", "01 Desmos Essentials", "20 slides"] ] },
+        { title: "Algebra", files: [
+          ["02_Linear_Equations_One_Variable.pdf", "02 Linear Equations in One Variable", "8 slides"],
+          ["03_Lines_and_Two_Variable_Equations.pdf", "03 Lines and Two-Variable Equations", "7 slides"],
+          ["04_Linear_Functions.pdf", "04 Linear Functions", "7 slides"],
+          ["05_Systems_of_Linear_Equations.pdf", "05 Systems of Linear Equations", "8 slides"],
+          ["06_Linear_Inequalities.pdf", "06 Linear Inequalities", "7 slides"] ] },
+        { title: "Advanced Math", files: [
+          ["07_Exponents_and_Radicals.pdf", "07 Exponents and Radicals", "8 slides"],
+          ["08_Polynomials_and_Equivalent_Expressions.pdf", "08 Polynomials and Equivalent Expressions", "8 slides"],
+          ["09_Quadratic_Equations_and_Parabolas.pdf", "09 Quadratic Equations and Parabolas", "10 slides"],
+          ["10_Other_Nonlinear_Equations_and_Systems.pdf", "10 Other Nonlinear Equations and Systems", "9 slides"],
+          ["11_Exponential_and_Other_Nonlinear_Functions.pdf", "11 Exponential and Other Nonlinear Functions", "8 slides"] ] },
+        { title: "Problem-solving and data", files: [
+          ["12_Ratios_Rates_Proportions_and_Units.pdf", "12 Ratios, Rates, Proportions and Units", "8 slides"],
+          ["13_Percentages.pdf", "13 Percentages", "7 slides"],
+          ["14_One_Variable_Data_and_Statistics.pdf", "14 One-Variable Data and Statistics", "9 slides"],
+          ["15_Scatterplots_Models_and_Regression.pdf", "15 Scatterplots, Models and Regression", "7 slides"],
+          ["16_Probability_and_Conditional_Probability.pdf", "16 Probability and Conditional Probability", "7 slides"],
+          ["17_Inference_and_Margin_of_Error.pdf", "17 Inference and Margin of Error", "6 slides"],
+          ["18_Study_Design_and_Statistical_Claims.pdf", "18 Study Design and Statistical Claims", "6 slides"] ] },
+        { title: "Geometry and trigonometry", files: [
+          ["19_Area_Surface_Area_and_Volume.pdf", "19 Area, Surface Area and Volume", "8 slides"],
+          ["20_Lines_Angles_and_Similar_Triangles.pdf", "20 Lines, Angles and Similar Triangles", "8 slides"],
+          ["21_Right_Triangles_and_Trigonometry.pdf", "21 Right Triangles and Trigonometry", "8 slides"],
+          ["22_Circles.pdf", "22 Circles", "9 slides"] ] }
+      ];
+
+      var code = new URLSearchParams(window.location.search).get("code");
+      function href(file) {
+        return "/api/download?file=" + encodeURIComponent(file) + "&code=" + encodeURIComponent(code || "");
+      }
+      function item(file, title, note) {
+        var row = document.createElement("div");
+        row.className = "dl-item";
+        var text = document.createElement("div");
+        var h = document.createElement("h3"); h.textContent = title;
+        var p = document.createElement("p"); p.textContent = note;
+        text.appendChild(h); text.appendChild(p);
+        var a = document.createElement("a");
+        a.className = "btn btn-sm";
+        a.textContent = "Download";
+        if (code) { a.href = href(file); }
+        else { a.href = "#"; a.setAttribute("aria-disabled", "true"); a.style.opacity = ".45"; a.style.pointerEvents = "none"; }
+        row.appendChild(text); row.appendChild(a);
+        return row;
+      }
+
+      var bundles = document.getElementById("bundles");
+      BUNDLES.forEach(function (b) { bundles.appendChild(item(b.file, b.title, b.note)); });
+
+      var groups = document.getElementById("groups");
+      GROUPS.forEach(function (g, i) {
+        var d = document.createElement("details");
+        if (i === 0) d.open = true;
+        var s = document.createElement("summary");
+        s.textContent = g.title + " (" + g.files.length + ")";
+        d.appendChild(s);
+        var list = document.createElement("div");
+        list.className = "dl-list inner";
+        g.files.forEach(function (f) { list.appendChild(item(f[0], f[1], "PDF · " + f[2])); });
+        d.appendChild(list);
+        groups.appendChild(d);
+      });
+
+      if (!code) document.getElementById("dlMsg").style.display = "block";
+    })();
+  </script>
+</body>
+</html>
+
+// The only file you need to edit before launch.
+window.GUMSAT_CONFIG = {
+  // Whish payment link (the same one your QR code opens).
+  whishUrl: "https://whish.money/app/pay/M6GDTCqXE",
+
+  // Where buyers send their payment screenshot. Fill in at least one.
+  supportEmail: "GumSat@gmail.com",
+
+  // WhatsApp number with country code, digits only. Example: "9613123456"
+  whatsappNumber: ""
+};
